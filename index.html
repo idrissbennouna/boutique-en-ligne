@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique de Luxe</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Vérification si l'utilisateur est connecté
+        if (!localStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html'; // Redirection si non connecté
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img src="téléchargement.png" alt="Logo" class="brand-logo">
+            <span>SHOP</span>
+        </div>
+        <div class="navbar-actions">
+            <button class="btn btn-logout">Déconnexion</button>
+            <select id="language-selector" class="language-selector">
+                <option value="fr">Français</option>
+                <option value="en">English</option>
+            </select>
+        </div>
+        <div class="admin">
+            <img src="avatar-icon-vector-11835238.jpg" alt="">
+        </div>
+    </nav>
+          <!-- mise en page -->
+    <div class="layout">
+        <aside class="sidebar">
+            <ul class="menu">
+                <li><a href="#dashboard" class="menu-item active">Tableau de bord</a></li>
+                <li><a href="#products" class="menu-item">Produits</a></li>
+                <li><a href="#users" class="menu-item">Utilisateurs</a></li>
+                <li><a href="#orders" class="menu-item">Commandes</a></li>
+            </ul>
+        </aside>
+
+        <main class="content">
+            <!-- Tableau de bord -->
+            <section id="dashboard">
+                <h1>Tableau de bord</h1>
+                <div class="stats">
+                    <div class="card">
+                        <h2>Total Produits</h2>
+                        <p id="total-products">0</p>
+                    </div>
+                    <div class="card">
+                        <h2>Total Utilisateurs</h2>
+                        <p id="total-users">0</p>
+                    </div>
+                    <div class="card">++
+                        <h2>Total Commandes</h2>
+                        <p id="total-orders">0</p>
+                    </div>
+                </div>
+
+                <!-- Graphiques -->
+                <div class="charts">
+                    <div class="chart-container">
+                        <h3>Stock par Catégorie</h3>
+                        <canvas id="productsChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Clients (Répartition par Région)</h3>
+                        <canvas id="usersChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Commandes (Évolution Mensuelle)</h3>
+                        <canvas id="ordersChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Produits -->
+            <section id="products" class="section hidden">
+                <h1>Produits</h1>
+                <button class="btn btn-add" onclick="ajouterProduit()">Ajouter un produit</button>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Catégorie</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-table-body"></tbody>
+                </table>
+            </section>
+
+            <!-- Utilisateurs -->
+            <section id="users" class="section hidden">
+                <h1>Utilisateurs</h1>
+                <button class="btn btn-add" onclick="ajouterUtilisateur()">Ajouter un utilisateur</button>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Region</th>
+                            <th>Pourcentage</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body"></tbody>
+                </table>
+            </section>
+
+            <!-- Commandes -->
+            <section id="orders" class="section hidden">
+                <h1>Commandes</h1>
+                <button class="btn btn-add" onclick="ajouterCommande()">Ajouter une commande</button>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Mois</th>
+                            <th>Total</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-table-body"></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="productsChart.js"></script>
+    <script src="usersChart.js"></script>
+    <script src="ordersChart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            chargerDonneesJSON();
+        });
+    </script>
+    <script src="main.js"></script>
+    <script>
+        // Gestion de la déconnexion
+        document.querySelector('.btn-logout').addEventListener('click', () => {
+            localStorage.removeItem('isLoggedIn'); // Supprimer la session
+            window.location.href = 'login.html'; // Redirection vers la page de connexion
+        });
+    </script>
+</body>
+</html>

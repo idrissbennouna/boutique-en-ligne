@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container">
+        <h1>Connexion</h1>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur</label>
+                <input type="text" id="username" placeholder="Nom d'utilisateur" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" placeholder="Mot de passe" required>
+            </div>
+            <button type="submit" class="btn btn-login">Se connecter</button>
+        </form>
+        <p id="login-error" style="color: red; display: none;">Nom d'utilisateur ou mot de passe incorrect.</p>
+    </div>
+
+    <script>
+        const form = document.getElementById('login-form');
+        const errorElement = document.getElementById('login-error');
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Validation utilisateur statique
+            if (username === 'admin' && password === 'admin') {
+                localStorage.setItem('isLoggedIn', 'true'); // Marquer comme connecté
+                window.location.href = 'index.html'; // Redirection vers la page principale
+            } else {
+                errorElement.style.display = 'block'; // Afficher l'erreur
+            }
+        });
+    </script>
+</body>
+</html>
+ 
